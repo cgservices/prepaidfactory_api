@@ -105,6 +105,10 @@ module PrepaidfactoryApi
     end
 
     def map_to_object(response)
+      response_name = response.keys[1].to_s.sub('consumer_service_response_','')
+      object_name = "PrepaidfactoryApi::Responses::#{response_name.capitalize}"
+      response = response[:"consumer_service_response_#{response_name}"]
+      puts "#{object_name} => #{response.size}"
     end
 
   end
