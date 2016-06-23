@@ -12,13 +12,13 @@ request = PrepaidfactoryApi::Requests::GetProductInformation.new(config['ppf']['
 products = client.getProductInformation(request)
 
 # Create order
-request = PrepaidfactoryApi::Requests::CreateOrder.new(config['ppf']['retailerId'], 'CS40', 'TEST-TERMINAL')
+request = PrepaidfactoryApi::Requests::CreateOrder.new(config['ppf']['retailerId'], 'C3627', 'TEST-TERMINAL')
 order = client.createOrder(request)
 
 # Cancel order
-request = PrepaidfactoryApi::Requests::CancelOrder.new(order.OrderID)
-order = client.cancelOrder(request)
+#request = PrepaidfactoryApi::Requests::CancelOrder.new(order.OrderID)
+#order = client.cancelOrder(request)
 
 # Confirm order
-request = PrepaidfactoryApi::Requests::ConfirmOrder.new(order.OrderId)
-order = client.createOrder(request)
+#request = PrepaidfactoryApi::Requests::ConfirmOrder.new(order.OrderId)
+#order = client.confirmOrder(request)
