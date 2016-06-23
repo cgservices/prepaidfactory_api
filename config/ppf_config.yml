@@ -1,0 +1,19 @@
+# SAMPLE CONFIG
+
+# Certification
+certificate:
+  pem_cert:        /Users/svrossum/Documents/Prepaid Factory/RT-Vouchershop-2014012014-TEST/RT-Vouchershop-2014012014-TEST.pem
+  pem_key:         /Users/svrossum/Documents/Prepaid Factory/RT-Vouchershop-2014012014-TEST/ppf_key.pem
+  pem_key_secret:  84vdEAIAKbcsAoUxmMxJ
+
+# SOAP
+soap:
+  endpoint:        https://ssc-evoucher-rt03-test.mendix.nl/ws
+  username:        CG1234567
+  password:        CG34fewr4
+  wsdl:            /Users/svrossum/Documents/Prepaid Factory/PPF-WSDL2.xml
+
+# Prepaid Factory
+ppf:
+  retailerId:      CG1234567
+  terminalId:      Test
