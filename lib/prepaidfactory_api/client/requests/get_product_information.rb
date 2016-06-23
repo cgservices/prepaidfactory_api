@@ -1,11 +1,12 @@
 module PrepaidfactoryApi
 
-  module Request
-    class GetProductInformation < Request::Base
+  module Requests
+    class GetProductInformation < Requests::Base
 
-      def initialize(retailerId)
-        @RetailerID = retailerId
+      def initialize(retailerID)
+        @RetailerID = retailerID
       end
+
     end
   end
 end

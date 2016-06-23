@@ -41,25 +41,19 @@ module PrepaidfactoryApi
     end
 
     def getProductInformation(request)
-      response = request(:get_product_information, {
-        RetailerID: @@config['ppf']['retailerId']
-      })
-      #products = response[]
-
+      request(:get_product_information, request)
     end
 
     def createOrder(request)
-      request(:create_order, requestCreateOrder)
+      request(:create_order, request)
     end
 
     def confirmOrder(request)
-      request(:confirm_order, requestConfirmOrder)
+      request(:confirm_order, request)
     end
 
     def cancelOrder(request)
-      response = request(:cancel_order, {
-        OrderID: orderId
-      })
+      response = request(:cancel_order, request)
     end
 
     private
@@ -67,32 +61,6 @@ module PrepaidfactoryApi
     def request(operation, request)
       begin
         response = @@soap.call(operation, :message => request.to_hash)
-        # status = response.body.getPpfStatus
-        #
-        # # Parse response status
-        # case status
-        # when "Error_RetailerNotFound"
-        #   raise PrepaidfactoryApi::Exception, "An invalid retailer id is provided in the request"
-        # when "Error_NoCredit"
-        #   raise PrepaidfactoryApi::Exception, "The order could not be created, when you receive this status there is no credit left"
-        # when "TerminalLimitExceeded"
-        #   raise PrepaidfactoryApi::Exception, "Limit per TerminalID exceeded for paysafe products "
-        # when "Error_ProductNotFound"
-        #   raise PrepaidfactoryApi::Exception, "The product is unknown or the product won’t be sold anymore"
-        # when "Error_OutOfStock"
-        #   raise PrepaidfactoryApi::Exception, "The order can’t be created because the requested product is out of stock"
-        # when "Error_OrderNotFound", "Error_CancelOrderNotFound"
-        #   raise PrepaidfactoryApi::Exception, "The order could not be found with the supplied order id"
-        # when "Error_ConfirmNotAllowed"
-        #   raise PrepaidfactoryApi::Exception, "That is because the element IsCancelable was not provided in the CreateOrder request or the element contained the value 'false'"
-        # when "Error_InvalidRequestType"
-        #   raise PrepaidfactoryApi::Exception, "The order could not be confirmed. Please contact PPF when you receive this response"
-        # when "Error_CancelOrderNotCancelable"
-        #   raise PrepaidfactoryApi::Exception, "The order could not be cancelled, the element IsCancelable was not provided in the CreateOrder request or the element contained the value 'false'"
-        # when "Error_CancelOrderNotOpen"
-        #   raise PrepaidfactoryApi::Exception, "The order could not be cancelled, the order has already been confirmed"
-        # end
-        # return response.body
       rescue Savon::HTTPError => e
         raise PrepaidfactoryApi::Exception.new(e), "HTTP error, is the setup correct and the endpoint online?"
       rescue Savon::SOAPFault => e
@@ -100,6 +68,43 @@ module PrepaidfactoryApi
       rescue => e
         raise PrepaidfactoryApi::Exception.new(e), "Uncaught error on operation '#{operation.to_s}': #{e.message}"
       end
+
+      parse_response(response.body, operation)
+    end
+
+    def parse_response(response, operation)
+      response = response[:"#{operation}_response"][:consumer_service_response]
+      status = response[:status]
+      puts "#{operation.to_s.ljust(30)}: #{status}"
+
+      # Parse response status
+      case status
+      when "Error_RetailerNotFound"
+        raise PrepaidfactoryApi::Exception, "An invalid retailer id is provided in the request"
+      when "Error_NoCredit"
+        raise PrepaidfactoryApi::Exception, "The order could not be created, when you receive this status there is no credit left"
+      when "TerminalLimitExceeded"
+        raise PrepaidfactoryApi::Exception, "Limit per TerminalID exceeded for paysafe products "
+      when "Error_ProductNotFound"
+        raise PrepaidfactoryApi::Exception, "The product is unknown or the product won’t be sold anymore"
+      when "Error_OutOfStock"
+        raise PrepaidfactoryApi::Exception, "The order can’t be created because the requested product is out of stock"
+      when "Error_OrderNotFound", "Error_CancelOrderNotFound"
+        raise PrepaidfactoryApi::Exception, "The order could not be found with the supplied order id"
+      when "Error_ConfirmNotAllowed"
+        raise PrepaidfactoryApi::Exception, "That is because the element IsCancelable was not provided in the CreateOrder request or the element contained the value 'false'"
+      when "Error_InvalidRequestType"
+        raise PrepaidfactoryApi::Exception, "The order could not be confirmed. Please contact PPF when you receive this response"
+      when "Error_CancelOrderNotCancelable"
+        raise PrepaidfactoryApi::Exception, "The order could not be cancelled, the element IsCancelable was not provided in the CreateOrder request or the element contained the value 'false'"
+      when "Error_CancelOrderNotOpen"
+        raise PrepaidfactoryApi::Exception, "The order could not be cancelled, the order has already been confirmed"
+      end
+
+      map_to_object(response)
+    end
+
+    def map_to_object(response)
     end
 
   end

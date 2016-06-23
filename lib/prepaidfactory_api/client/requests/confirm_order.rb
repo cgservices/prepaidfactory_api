@@ -1,8 +1,12 @@
 module PrepaidfactoryApi
 
-  module Request
-    class ConfirmOrder < Request::Base
-      @orderId
+  module Requests
+    class ConfirmOrder < Requests::Base
+
+      def initialize(orderID)
+        @OrderID = orderID
+      end
+
     end
   end
 end
