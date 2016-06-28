@@ -1,6 +1,6 @@
 module PrepaidfactoryApi
 
-  module Requests
+  module Entities
     class Base < PrepaidfactoryApi::Base
 
     end

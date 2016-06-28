@@ -3,8 +3,8 @@ module PrepaidfactoryApi
   module Responses
     class CancelOrder < Responses::Base
 
-      def initialize(cancelOrderResult)
-        @CancelOrderResult = cancelOrderResult
+      def parse_response(response)
+        puts response
       end
 
     end

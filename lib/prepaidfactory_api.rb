@@ -1,11 +1,12 @@
 require 'yaml'
 
 # Prepaid Factory API
+require 'prepaidfactory_api/base'
 require 'prepaidfactory_api/version'
+
+# Prepadi Factory client
 require 'prepaidfactory_api/client/exception'
 require 'prepaidfactory_api/client/client'
-#require 'prepaidfactory_api/client/product'
-#require 'prepaidfactory_api/client/order'
 
 # Request objects
 require 'prepaidfactory_api/client/requests/base'
@@ -13,6 +14,17 @@ require 'prepaidfactory_api/client/requests/get_product_information'
 require 'prepaidfactory_api/client/requests/create_order'
 require 'prepaidfactory_api/client/requests/cancel_order'
 require 'prepaidfactory_api/client/requests/confirm_order'
+
+# Response objects
+require 'prepaidfactory_api/client/responses/base'
+require 'prepaidfactory_api/client/responses/cancel_order'
+require 'prepaidfactory_api/client/responses/order'
+require 'prepaidfactory_api/client/responses/product'
+
+# Entities
+require 'prepaidfactory_api/client/entities/base'
+require 'prepaidfactory_api/client/entities/order'
+require 'prepaidfactory_api/client/entities/product'
 
 # config
 #config = YAML.load(File.open('./config/ppf_config.yml'))

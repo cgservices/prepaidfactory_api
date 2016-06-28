@@ -41,19 +41,23 @@ module PrepaidfactoryApi
     end
 
     def getProductInformation(request)
-      request(:get_product_information, request)
+      response = request(:get_product_information, request)
+      #PrepaidfactoryApi::Responses::ProductList.new(response)
     end
 
     def createOrder(request)
-      request(:create_order, request)
+      response = request(:create_order, request)
+      #PrepaidfactoryApi::Responses::Order.new(response)
     end
 
     def confirmOrder(request)
-      request(:confirm_order, request)
+      response = request(:confirm_order, request)
+      #PrepaidfactoryApi::Responses::Order.new(response)
     end
 
     def cancelOrder(request)
       response = request(:cancel_order, request)
+      #PrepaidfactoryApi::Responses::CancelOrder.new(response)
     end
 
     private
@@ -69,13 +73,17 @@ module PrepaidfactoryApi
         raise PrepaidfactoryApi::Exception.new(e), "Uncaught error on operation '#{operation.to_s}': #{e.message}"
       end
 
-      parse_response(response.body, operation)
+      parse_response response.body, operation
     end
 
-    def parse_response(response, operation)
-      response = response[:"#{operation}_response"][:consumer_service_response]
+    def parse_response(response,operation)
+      #response = response[:"#{operation}_response"][:consumer_service_response]
+      puts response
+      response = response[response.keys.first]
+      puts response
+      response = response[response.keys.first]
+      puts response; exit
       status = response[:status]
-      puts "#{operation.to_s.ljust(30)}: #{status}"
 
       # Parse response status
       case status
@@ -101,14 +109,13 @@ module PrepaidfactoryApi
         raise PrepaidfactoryApi::Exception, "The order could not be cancelled, the order has already been confirmed"
       end
 
-      map_to_object(response)
+      #map_to_response_obj response
     end
 
-    def map_to_object(response)
-      response_name = response.keys[1].to_s.sub('consumer_service_response_','')
-      object_name = "PrepaidfactoryApi::Responses::#{response_name.capitalize}"
-      response = response[:"consumer_service_response_#{response_name}"]
-      puts "#{object_name} => #{response.size}"
+    def map_to_response_obj(response)
+      #response_name = response.keys[1].to_s.sub('consumer_service_response_','')
+      #response_class = "PrepaidfactoryApi::Responses::#{response_name.capitalize}".split('::').inject(Object) {|o,c| o.const_get c}
+      #response_class.new response[:"consumer_service_response_#{response_name}"]
     end
 
   end
