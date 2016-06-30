@@ -58,8 +58,6 @@ module PrepaidfactoryApi
       request(:cancel_order, request)
     end
 
-    private
-
     def request(operation, request)
       begin
         response = @@soap.call(operation, :message => request.to_hash)
