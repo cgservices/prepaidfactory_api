@@ -17,27 +17,12 @@ require 'prepaidfactory_api/client/requests/confirm_order'
 
 # Response objects
 require 'prepaidfactory_api/client/responses/base'
+require 'prepaidfactory_api/client/responses/create_order'
 require 'prepaidfactory_api/client/responses/cancel_order'
-require 'prepaidfactory_api/client/responses/order'
-require 'prepaidfactory_api/client/responses/product'
+require 'prepaidfactory_api/client/responses/confirm_order'
+require 'prepaidfactory_api/client/responses/get_product_information'
 
 # Entities
 require 'prepaidfactory_api/client/entities/base'
 require 'prepaidfactory_api/client/entities/order'
 require 'prepaidfactory_api/client/entities/product'
-
-# config
-#config = YAML.load(File.open('./config/ppf_config.yml'))
-
-# Create client instance
-#client = PrepaidfactoryApi::Client.new(config)
-
-# Retrieve products
-#request = PrepaidfactoryApi::Request::GetProductInformation.new(config['ppf']['retailerId'])
-#products = client.getProductInformation()
-#products.each { |product|
-#  puts product.to_s
-#}
-
-# Create new order
-#client.createOrder(PrepaidfactoryApi::Request::CreateOrder.new)

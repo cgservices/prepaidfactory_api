@@ -41,23 +41,21 @@ module PrepaidfactoryApi
     end
 
     def getProductInformation(request)
-      response = request(:get_product_information, request)
-      #PrepaidfactoryApi::Responses::ProductList.new(response)
+      request(:get_product_information, request)
     end
 
     def createOrder(request)
-      response = request(:create_order, request)
-      #PrepaidfactoryApi::Responses::Order.new(response)
+      object = request(:create_order, request)
+      object.entities.first
     end
 
     def confirmOrder(request)
-      response = request(:confirm_order, request)
-      #PrepaidfactoryApi::Responses::Order.new(response)
+      object = request(:confirm_order, request)
+      object.entities.first
     end
 
     def cancelOrder(request)
-      response = request(:cancel_order, request)
-      #PrepaidfactoryApi::Responses::CancelOrder.new(response)
+      request(:cancel_order, request)
     end
 
     private
@@ -73,49 +71,13 @@ module PrepaidfactoryApi
         raise PrepaidfactoryApi::Exception.new(e), "Uncaught error on operation '#{operation.to_s}': #{e.message}"
       end
 
-      parse_response response.body, operation
+      response_to_object operation, response.body
     end
 
-    def parse_response(response,operation)
-      #response = response[:"#{operation}_response"][:consumer_service_response]
-      puts response
-      response = response[response.keys.first]
-      puts response
-      response = response[response.keys.first]
-      puts response; exit
-      status = response[:status]
-
-      # Parse response status
-      case status
-      when "Error_RetailerNotFound"
-        raise PrepaidfactoryApi::Exception, "An invalid retailer id is provided in the request"
-      when "Error_NoCredit"
-        raise PrepaidfactoryApi::Exception, "The order could not be created, when you receive this status there is no credit left"
-      when "TerminalLimitExceeded"
-        raise PrepaidfactoryApi::Exception, "Limit per TerminalID exceeded for paysafe products "
-      when "Error_ProductNotFound"
-        raise PrepaidfactoryApi::Exception, "The product is unknown or the product won’t be sold anymore"
-      when "Error_OutOfStock"
-        raise PrepaidfactoryApi::Exception, "The order can’t be created because the requested product is out of stock"
-      when "Error_OrderNotFound", "Error_CancelOrderNotFound"
-        raise PrepaidfactoryApi::Exception, "The order could not be found with the supplied order id"
-      when "Error_ConfirmNotAllowed"
-        raise PrepaidfactoryApi::Exception, "That is because the element IsCancelable was not provided in the CreateOrder request or the element contained the value 'false'"
-      when "Error_InvalidRequestType"
-        raise PrepaidfactoryApi::Exception, "The order could not be confirmed. Please contact PPF when you receive this response"
-      when "Error_CancelOrderNotCancelable"
-        raise PrepaidfactoryApi::Exception, "The order could not be cancelled, the element IsCancelable was not provided in the CreateOrder request or the element contained the value 'false'"
-      when "Error_CancelOrderNotOpen"
-        raise PrepaidfactoryApi::Exception, "The order could not be cancelled, the order has already been confirmed"
-      end
-
-      #map_to_response_obj response
-    end
-
-    def map_to_response_obj(response)
-      #response_name = response.keys[1].to_s.sub('consumer_service_response_','')
-      #response_class = "PrepaidfactoryApi::Responses::#{response_name.capitalize}".split('::').inject(Object) {|o,c| o.const_get c}
-      #response_class.new response[:"consumer_service_response_#{response_name}"]
+    def response_to_object(operation, response)
+      class_operation = operation.to_s.split('_').map{|s| s.capitalize }.join
+      response_class = "PrepaidfactoryApi::Responses::#{class_operation}".split('::').inject(Object) {|object, const| object.const_get const}
+      response_object = response_class.new(response)
     end
 
   end
