@@ -3,7 +3,7 @@ module PrepaidfactoryApi
   module Requests
     class CreateOrder < Requests::Base
 
-      def initialize(retailerID, productID, terminalID, nrOfVouchers=1, reference='', isCancelable=true, autoConfirm=true)
+      def initialize(retailerID, productID, terminalID, nrOfVouchers=1, reference='', isCancelable=true, autoConfirm=false)
         @RetailerID = retailerID
         @ProductID = productID
         @TerminalID = terminalID
