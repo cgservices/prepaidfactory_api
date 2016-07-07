@@ -2,7 +2,7 @@ module PrepaidfactoryApi
 
   module Responses
     class Base < PrepaidfactoryApi::Base
-      include Enumerable
+      #include Enumerable
 
       attr_reader :entities
 
@@ -16,6 +16,14 @@ module PrepaidfactoryApi
 
       def each(&block)
         @entities.each(&block)
+      end
+
+      def first
+        @entities.first
+      end
+
+      def method_missing(method, *args, &block)
+        @entities.first.send(method.to_sym, *args)
       end
 
     end
