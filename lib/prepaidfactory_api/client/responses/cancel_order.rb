@@ -9,6 +9,10 @@ module PrepaidfactoryApi
         super response
       end
 
+      def parse(response)
+        @entities.push PrepaidfactoryApi::Entities::Order.new({status:'OrderCanceled'})
+      end
+
     end
   end
 end
