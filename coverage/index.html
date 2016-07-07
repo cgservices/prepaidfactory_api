@@ -14,26 +14,26 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2016-07-07T15:05:19+02:00">2016-07-07T15:05:19+02:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2016-07-07T15:34:17+02:00">2016-07-07T15:34:17+02:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
         <div class="file_list_container" id="AllFiles">
   <h2>
     <span class="group_name">All Files</span>
-    (<span class="covered_percent"><span class="green">92.0%</span></span>
+    (<span class="covered_percent"><span class="green">92.06%</span></span>
      covered at
      <span class="covered_strength">
        <span class="green">
-         2.45
+         2.74
        </span>
     </span> hits/line)
   </h2>
   <a name="AllFiles"></a>
   <div>
     <b>27</b> files in total.
-    <b>275</b> relevant lines. 
-    <span class="green"><b>253</b> lines covered</span> and
+    <b>277</b> relevant lines. 
+    <span class="green"><b>255</b> lines covered</span> and
     <span class="red"><b>22</b> lines missed </span>
   </div>
   <table class="file_list">
@@ -67,17 +67,17 @@
         <td>5</td>
         <td>5</td>
         <td>0</td>
-        <td>14.2</td>
+        <td>28.0</td>
       </tr>
       
       <tr>
         <td class="strong"><a href="#7b498877ab4144bea3891528ce6c32a279aa5914" class="src_link" title="lib/prepaidfactory_api/client/client.rb">lib/prepaidfactory_api/client/client.rb</a></td>
-        <td class="green strong">95.12 %</td>
-        <td>91</td>
-        <td>41</td>
-        <td>39</td>
+        <td class="green strong">95.24 %</td>
+        <td>92</td>
+        <td>42</td>
+        <td>40</td>
         <td>2</td>
-        <td>5.8</td>
+        <td>6.0</td>
       </tr>
       
       <tr>
@@ -233,7 +233,7 @@
       <tr>
         <td class="strong"><a href="#b51cc0f7d386d9261465cbd238eb44d213e905bb" class="src_link" title="spec/client/create_order_spec.rb">spec/client/create_order_spec.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>30</td>
+        <td>28</td>
         <td>13</td>
         <td>13</td>
         <td>0</td>
@@ -253,9 +253,9 @@
       <tr>
         <td class="strong"><a href="#515c7de63e84c16be71069b294f8c37f79747aba" class="src_link" title="spec/client/request_spec.rb">spec/client/request_spec.rb</a></td>
         <td class="green strong">100.0 %</td>
-        <td>33</td>
-        <td>14</td>
-        <td>14</td>
+        <td>35</td>
+        <td>15</td>
+        <td>15</td>
         <td>0</td>
         <td>1.0</td>
       </tr>
@@ -566,14 +566,14 @@
           <code class="ruby">    def to_hash</code>
         </li>
       
-        <li class="covered" data-hits="17" data-linenumber="6">
-          <span class="hits">17</span>
+        <li class="covered" data-hits="35" data-linenumber="6">
+          <span class="hits">35</span>
           
           <code class="ruby">      instance_variables.each_with_object({}) { |var, hash|</code>
         </li>
       
-        <li class="covered" data-hits="51" data-linenumber="7">
-          <span class="hits">51</span>
+        <li class="covered" data-hits="102" data-linenumber="7">
+          <span class="hits">102</span>
           
           <code class="ruby">        hash[var.to_s.delete(&quot;@&quot;)] = self.instance_variable_get(var)</code>
         </li>
@@ -615,10 +615,10 @@
         <div class="source_table" id="7b498877ab4144bea3891528ce6c32a279aa5914">
   <div class="header">
     <h3>lib/prepaidfactory_api/client/client.rb</h3>
-    <h4><span class="green">95.12 %</span> covered</h4>
+    <h4><span class="green">95.24 %</span> covered</h4>
     <div>
-      <b>41</b> relevant lines. 
-      <span class="green"><b>39</b> lines covered</span> and
+      <b>42</b> relevant lines. 
+      <span class="green"><b>40</b> lines covered</span> and
       <span class="red"><b>2</b> lines missed.</span>
     </div>
   </div>
@@ -803,7 +803,7 @@
         <li class="never" data-hits="" data-linenumber="30">
           
           
-          <code class="ruby">        log:                      true,</code>
+          <code class="ruby">        #log:                      true,</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="31">
@@ -1025,148 +1025,154 @@
         <li class="covered" data-hits="17" data-linenumber="67">
           <span class="hits">17</span>
           
+          <code class="ruby">      p request_object.to_hash</code>
+        </li>
+      
+        <li class="covered" data-hits="17" data-linenumber="68">
+          <span class="hits">17</span>
+          
           <code class="ruby">      raise PrepaidfactoryApi::MalformedRequestObject, &quot;Malformed request object #{request_object.class} for operation #{operation.to_s}&quot; unless request_object.respond_to?(:to_hash)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="68">
+        <li class="never" data-hits="" data-linenumber="69">
           
           
           <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="17" data-linenumber="69">
-          <span class="hits">17</span>
-          
-          <code class="ruby">      begin</code>
         </li>
       
         <li class="covered" data-hits="17" data-linenumber="70">
           <span class="hits">17</span>
           
+          <code class="ruby">      begin</code>
+        </li>
+      
+        <li class="covered" data-hits="17" data-linenumber="71">
+          <span class="hits">17</span>
+          
           <code class="ruby">        response = @@soap.call(operation, message: request_object.to_hash)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="71">
+        <li class="never" data-hits="" data-linenumber="72">
           
           
           <code class="ruby">      rescue Savon::HTTPError =&gt; e</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="72">
+        <li class="missed" data-hits="0" data-linenumber="73">
           
           
           <code class="ruby">        raise PrepaidfactoryApi::HTTPError, &quot;HTTP error, is the setup correct and the endpoint online?&quot;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="73">
+        <li class="never" data-hits="" data-linenumber="74">
           
           
           <code class="ruby">      rescue Savon::SOAPFault =&gt; e</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="74">
+        <li class="covered" data-hits="1" data-linenumber="75">
           <span class="hits">1</span>
           
           <code class="ruby">        raise PrepaidfactoryApi::SOAPFault, &quot;SOAPFault caught, the message is [#{e.to_hash[:fault][:faultcode]}] #{e.to_hash[:fault][:faultstring]}&quot;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="75">
+        <li class="never" data-hits="" data-linenumber="76">
           
           
           <code class="ruby">      rescue Savon::UnknownOperationError =&gt; e</code>
         </li>
       
-        <li class="covered" data-hits="2" data-linenumber="76">
+        <li class="covered" data-hits="2" data-linenumber="77">
           <span class="hits">2</span>
           
           <code class="ruby">        raise PrepaidfactoryApi::UnknownOperation, &quot;Unknown operation &#39;#{operation.to_s}&#39;, the message is #{e}&quot;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="77">
+        <li class="never" data-hits="" data-linenumber="78">
           
           
           <code class="ruby">      rescue =&gt; e</code>
         </li>
       
-        <li class="missed" data-hits="0" data-linenumber="78">
+        <li class="missed" data-hits="0" data-linenumber="79">
           
           
           <code class="ruby">        raise PrepaidfactoryApi::Uncaught, &quot;Uncaught error on operation &#39;#{operation.to_s}&#39;: #{e.message}&quot;</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="79">
+        <li class="never" data-hits="" data-linenumber="80">
           
           
           <code class="ruby">      end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="80">
+        <li class="never" data-hits="" data-linenumber="81">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="14" data-linenumber="81">
+        <li class="covered" data-hits="14" data-linenumber="82">
           <span class="hits">14</span>
           
           <code class="ruby">      response_to_object operation, response.body</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="82">
+        <li class="never" data-hits="" data-linenumber="83">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="83">
+        <li class="never" data-hits="" data-linenumber="84">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="84">
+        <li class="covered" data-hits="1" data-linenumber="85">
           <span class="hits">1</span>
           
           <code class="ruby">    def response_to_object(operation, response)</code>
         </li>
       
-        <li class="covered" data-hits="43" data-linenumber="85">
+        <li class="covered" data-hits="43" data-linenumber="86">
           <span class="hits">43</span>
           
           <code class="ruby">      class_operation = operation.to_s.split(&#39;_&#39;).map{|s| s.capitalize }.join</code>
         </li>
       
-        <li class="covered" data-hits="56" data-linenumber="86">
+        <li class="covered" data-hits="56" data-linenumber="87">
           <span class="hits">56</span>
           
           <code class="ruby">      response_class = &quot;PrepaidfactoryApi::Responses::#{class_operation}&quot;.split(&#39;::&#39;).inject(Object) {|object, const| object.const_get const}</code>
         </li>
       
-        <li class="covered" data-hits="14" data-linenumber="87">
+        <li class="covered" data-hits="14" data-linenumber="88">
           <span class="hits">14</span>
           
           <code class="ruby">      response_object = response_class.new(response)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="88">
+        <li class="never" data-hits="" data-linenumber="89">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="89">
+        <li class="never" data-hits="" data-linenumber="90">
           
           
           <code class="ruby"></code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="90">
+        <li class="never" data-hits="" data-linenumber="91">
           
           
           <code class="ruby">  end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="91">
+        <li class="never" data-hits="" data-linenumber="92">
           
           
           <code class="ruby">end</code>
@@ -3587,28 +3593,16 @@
         <li class="never" data-hits="" data-linenumber="26">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">  end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="27">
           
           
-          <code class="ruby"></code>
+          <code class="ruby">  </code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="28">
-          
-          
-          <code class="ruby">  end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="29">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="30">
           
           
           <code class="ruby">end</code>
@@ -3803,8 +3797,8 @@
     <h3>spec/client/request_spec.rb</h3>
     <h4><span class="green">100.0 %</span> covered</h4>
     <div>
-      <b>14</b> relevant lines. 
-      <span class="green"><b>14</b> lines covered</span> and
+      <b>15</b> relevant lines. 
+      <span class="green"><b>15</b> lines covered</span> and
       <span class="red"><b>0</b> lines missed.</span>
     </div>
   </div>
@@ -3887,115 +3881,115 @@
         <li class="covered" data-hits="1" data-linenumber="13">
           <span class="hits">1</span>
           
-          <code class="ruby">    it &#39;can handle a unknown operation&#39; do</code>
+          <code class="ruby">    p &quot;FakeRequest #{FakeRequest.new.to_hash}&quot;</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="14">
-          <span class="hits">1</span>
+        <li class="never" data-hits="" data-linenumber="14">
           
-          <code class="ruby">      expect {</code>
+          
+          <code class="ruby"></code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="15">
           <span class="hits">1</span>
           
+          <code class="ruby">    it &#39;can handle a unknown operation&#39; do</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="16">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      expect {</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="17">
+          <span class="hits">1</span>
+          
           <code class="ruby">        CLIENT.request(:unknown_operation, PrepaidfactoryApi::Requests::GetProductInformation.new(CONFIG[&#39;ppf&#39;][&#39;retailer_id&#39;]))</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="16">
-          
-          
-          <code class="ruby">      }.to raise_error(PrepaidfactoryApi::UnknownOperation)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="17">
-          
-          
-          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="18">
           
           
+          <code class="ruby">      }.to raise_error(PrepaidfactoryApi::UnknownOperation)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="19">
+          
+          
+          <code class="ruby">    end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="20">
+          
+          
           <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="19">
-          <span class="hits">1</span>
-          
-          <code class="ruby">    it &#39;can handle a known operation with a wrong request object&#39; do</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="20">
-          <span class="hits">1</span>
-          
-          <code class="ruby">      expect {</code>
         </li>
       
         <li class="covered" data-hits="1" data-linenumber="21">
           <span class="hits">1</span>
           
-          <code class="ruby">        CLIENT.request(:get_product_information, WrongRequest.new)</code>
+          <code class="ruby">    it &#39;can handle a known operation with a wrong request object&#39; do</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="22">
-          
-          
-          <code class="ruby">      }.to raise_error(PrepaidfactoryApi::SOAPFault)</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="23">
-          
-          
-          <code class="ruby">    end</code>
-        </li>
-      
-        <li class="never" data-hits="" data-linenumber="24">
-          
-          
-          <code class="ruby"></code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="25">
-          <span class="hits">1</span>
-          
-          <code class="ruby">    it &#39;can handle a unknown operation with a fake request object&#39; do</code>
-        </li>
-      
-        <li class="covered" data-hits="1" data-linenumber="26">
+        <li class="covered" data-hits="1" data-linenumber="22">
           <span class="hits">1</span>
           
           <code class="ruby">      expect {</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="27">
+        <li class="covered" data-hits="1" data-linenumber="23">
           <span class="hits">1</span>
           
-          <code class="ruby">        CLIENT.request(:unknown_operation, FakeRequest.new)</code>
+          <code class="ruby">        CLIENT.request(:get_product_information, WrongRequest.new)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="28">
+        <li class="never" data-hits="" data-linenumber="24">
           
           
-          <code class="ruby">      }.to raise_error(PrepaidfactoryApi::MalformedRequestObject)</code>
+          <code class="ruby">      }.to raise_error(PrepaidfactoryApi::SOAPFault)</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="29">
+        <li class="never" data-hits="" data-linenumber="25">
           
           
           <code class="ruby">    end</code>
         </li>
       
-        <li class="never" data-hits="" data-linenumber="30">
+        <li class="never" data-hits="" data-linenumber="26">
           
           
           <code class="ruby"></code>
         </li>
       
+        <li class="covered" data-hits="1" data-linenumber="27">
+          <span class="hits">1</span>
+          
+          <code class="ruby">    it &#39;can handle a unknown operation with a fake request object&#39; do</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="28">
+          <span class="hits">1</span>
+          
+          <code class="ruby">      expect {</code>
+        </li>
+      
+        <li class="covered" data-hits="1" data-linenumber="29">
+          <span class="hits">1</span>
+          
+          <code class="ruby">        CLIENT.request(:unknown_operation, FakeRequest.new)</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="30">
+          
+          
+          <code class="ruby">      }.to raise_error(PrepaidfactoryApi::MalformedRequestObject)</code>
+        </li>
+      
         <li class="never" data-hits="" data-linenumber="31">
           
           
-          <code class="ruby">  end</code>
+          <code class="ruby">    end</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="32">
@@ -4005,6 +3999,18 @@
         </li>
       
         <li class="never" data-hits="" data-linenumber="33">
+          
+          
+          <code class="ruby">  end</code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="34">
+          
+          
+          <code class="ruby"></code>
+        </li>
+      
+        <li class="never" data-hits="" data-linenumber="35">
           
           
           <code class="ruby">end</code>
