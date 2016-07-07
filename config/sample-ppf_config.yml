@@ -15,5 +15,5 @@ soap:
 
 # Prepaid Factory
 ppf:
-  retailerId:      retailerIdProvidedByPPF
-  terminalId:      selfProvidedTerminalId
+  retailer_id:      retailerIdProvidedByPPF
+  terminal_id:      selfProvidedTerminalId
