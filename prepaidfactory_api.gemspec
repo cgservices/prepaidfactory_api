@@ -32,6 +32,7 @@ Gem::Specification.new do |spec|
 
   # Testing
   spec.add_development_dependency "rspec", "~> 3.0"
+  spec.add_development_dependency "simplecov"
   #spec.add_development_dependency "rspec-nc"
   #spec.add_development_dependency "guard"
   #spec.add_development_dependency "guard-rspec"
@@ -43,7 +44,7 @@ Gem::Specification.new do |spec|
   #spec.add_development_dependency "pry-remote"
   #spec.add_development_dependency "pry-nav"
 
-  #spec.add_dependency 'yaml', 
+  #spec.add_dependency 'yaml',
   spec.add_dependency 'savon', '~> 2.11.1'
   #spec.add_dependency 'veto'
 end
