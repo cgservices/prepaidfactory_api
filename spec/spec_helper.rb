@@ -1,10 +1,12 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
-require 'prepaidfactory_api'
+require 'simplecov'
+SimpleCov.start
 
+require 'prepaidfactory_api'
 CONFIG = YAML.load(File.open('./config/ppf_config.yml'))
 CLIENT = PrepaidfactoryApi::Client.new(CONFIG)
-TERMINAL = 'RSPEC_TEST'
+TERMINAL = 'RSPEC_TEST1'
 
 # Should be a product in stock
 # C9910: PAYSAFE 10 EURO
@@ -34,4 +36,4 @@ TERMINAL = 'RSPEC_TEST'
 # SSC40: SSC 40 euro, returns error not found on order creation
 # SSC50: SSC 50 euro, always returns out of stock
 #PRODUCT = 'C9910' # Makes cancelOrder fail
-PRODUCT = 'C3638'
+PRODUCT = 'C3623'

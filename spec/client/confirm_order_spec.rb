@@ -22,8 +22,14 @@ describe PrepaidfactoryApi::Client do
 
     it 'can handle an already confirmed order' do
       expect {
-        CLIENT.confirmOrder(PrepaidfactoryApi::Requests::ConfirmOrder.new(order_id))
-      }.to raise_error(PrepaidfactoryApi::SOAPFault)
+        CLIENT.confirmOrder(PrepaidfactoryApi::Requests::ConfirmOrder.new(order.order_id))
+      }.to raise_error(PrepaidfactoryApi::ConfirmNotAllowed)
+    end
+
+    it 'can handle an wrong request object' do
+      expect {
+        CLIENT.confirmOrder(PrepaidfactoryApi::Requests::GetProductInformation.new(0))
+      }.to raise_error(PrepaidfactoryApi::WrongRequestObject)
     end
 
   end

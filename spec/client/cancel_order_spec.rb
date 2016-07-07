@@ -33,6 +33,12 @@ describe PrepaidfactoryApi::Client do
       }.to raise_error(PrepaidfactoryApi::CancelOrderNotCancelable)
     end
 
+    it "can handle wrong request object" do
+      expect {
+        CLIENT.cancelOrder(PrepaidfactoryApi::Requests::ConfirmOrder.new(0))
+      }.to raise_error(PrepaidfactoryApi::WrongRequestObject)
+    end
+
   end
 
 end
