@@ -40,33 +40,43 @@ module PrepaidfactoryApi
       })
     end
 
-    def getProductInformation(request)
-      request(:get_product_information, request)
+    def getProductInformation(request_object)
+      Exception.confirm_request request_object, PrepaidfactoryApi::Requests::GetProductInformation
+      request(:get_product_information, request_object)
     end
 
-    def createOrder(request)
-      object = request(:create_order, request)
+    def createOrder(request_object)
+      Exception.confirm_request request_object, PrepaidfactoryApi::Requests::CreateOrder
+      object = request(:create_order, request_object)
       object.entities.first
     end
 
-    def confirmOrder(request)
-      object = request(:confirm_order, request)
+    def confirmOrder(request_object)
+      Exception.confirm_request request_object, PrepaidfactoryApi::Requests::ConfirmOrder
+      object = request(:confirm_order, request_object)
       object.entities.first
     end
 
-    def cancelOrder(request)
-      request(:cancel_order, request)
+    def cancelOrder(request_object)
+      Exception.confirm_request request_object, PrepaidfactoryApi::Requests::CancelOrder
+      object = request(:cancel_order, request_object)
+      object.entities.first
     end
 
-    def request(operation, request)
+    def request(operation, request_object)
+      p request_object.to_hash
+      raise PrepaidfactoryApi::MalformedRequestObject, "Malformed request object #{request_object.class} for operation #{operation.to_s}" unless request_object.respond_to?(:to_hash)
+
       begin
-        response = @@soap.call(operation, :message => request.to_hash)
+        response = @@soap.call(operation, message: request_object.to_hash)
       rescue Savon::HTTPError => e
-        raise PrepaidfactoryApi::Exception.new(e), "HTTP error, is the setup correct and the endpoint online?"
+        raise PrepaidfactoryApi::HTTPError, "HTTP error, is the setup correct and the endpoint online?"
       rescue Savon::SOAPFault => e
-        raise PrepaidfactoryApi::Exception.new(e), "SOAPFault caught, the message is [#{e.to_hash[:fault][:faultcode]}] #{e.to_hash[:fault][:faultstring]}"
+        raise PrepaidfactoryApi::SOAPFault, "SOAPFault caught, the message is [#{e.to_hash[:fault][:faultcode]}] #{e.to_hash[:fault][:faultstring]}"
+      rescue Savon::UnknownOperationError => e
+        raise PrepaidfactoryApi::UnknownOperation, "Unknown operation '#{operation.to_s}', the message is #{e}"
       rescue => e
-        raise PrepaidfactoryApi::Exception.new(e), "Uncaught error on operation '#{operation.to_s}': #{e.message}"
+        raise PrepaidfactoryApi::Uncaught, "Uncaught error on operation '#{operation.to_s}': #{e.message}"
       end
 
       response_to_object operation, response.body
