@@ -8,7 +8,7 @@ config = YAML.load(File.open('./config/ppf_config.yml'))
 client = PrepaidfactoryApi::Client.new(config)
 
 # Retrieve products
-request = PrepaidfactoryApi::Requests::GetProductInformation.new(config['ppf']['retailer_id'])
+request = PrepaidfactoryApi::Requests::GetProductInformation.new(config['retailer_id'])
 products = client.getProductInformation(request)
 
 product_id = ''
@@ -22,12 +22,12 @@ products.each { |product|
 }
 
 # Create order
-# puts "\n==============================================================\nCREATING ORDER FOR #{product_id}\n=============================================================="
-# request = PrepaidfactoryApi::Requests::CreateOrder.new(config['ppf']['retailer_id'], product_id, 'TEST-TERMINAL')
-# order = client.createOrder(request)
-# order.each { |key, value|
-#   puts "#{key.to_s.delete('@').ljust(25)}: #{order.instance_variable_get(key)}"
-# }
+puts "\n==============================================================\nCREATING ORDER FOR #{product_id}\n=============================================================="
+request = PrepaidfactoryApi::Requests::CreateOrder.new(config['retailer_id'], 'C9910', 'TEST-TERMINAL')
+order = client.createOrder(request)
+order.each { |key, value|
+  puts "#{key.to_s.delete('@').ljust(25)}: #{order.instance_variable_get(key)}"
+}
 
 # Cancel order
 # puts "\n==============================================================\nCANCEL ORDER\n=============================================================="

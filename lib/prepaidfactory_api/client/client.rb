@@ -6,35 +6,37 @@ module PrepaidfactoryApi
   class Client
 
     def initialize(config)
-      config['soap']['open_timeout'] ||= 1
-      config['soap']['read_timeout'] ||= 5
+      config['open_timeout'] ||= 1
+      config['read_timeout'] ||= 5
+      config['ssl_verify_mode'] ||= :peer # :none, :peer, :fail_if_no_peer_cert, :client_once
       @@config = config
       setup
     end
 
     def setup
-      raise SecurityError, "Certificate doesn't exists" unless File.exists?(@@config['certificate']['pem_cert'])
-      raise SecurityError, "Certificate key doesn't exists" unless File.exists?(@@config['certificate']['pem_key'])
+      raise PrepaidfactoryApi::NoCertificate, "Certificate doesn't exists" unless File.exists?(@@config['pem_cert'])
+      raise PrepaidfactoryApi::NoCertificateKey, "Certificate key doesn't exists" unless File.exists?(@@config['pem_key'])
 
       return @@soap = Savon.client({
-        endpoint:                 @@config['soap']['endpoint'],
-        wsdl:                     @@config['soap']['wsdl'],
+        endpoint:                 @@config['endpoint'],
+        wsdl:                     @@config['wsdl'],
         #namespace:                'http://www.w3.org/2003/05/soap/',
         namespace_identifier:     :tns,
         #ssl_cert_file:            OpenSSL::X509::Certificate.new(File.read(@_sCertificate)),
-        ssl_cert_file:            @@config['certificate']['pem_cert'],
-        ssl_cert_key_file:        @@config['certificate']['pem_key'],
-        ssl_cert_key_password:    @@config['certificate']['pem_key_secret'],
+        ssl_cert_file:            @@config['pem_cert'],
+        ssl_cert_key_file:        @@config['pem_key'],
+        ssl_cert_key_password:    @@config['pem_key_secret'],
+        #ssl_verify_mode:          @@config['ssl_verify_mode'], # :none SHOULDN'T BE NECESSARY
         ssl_verify_mode:          :none, # :none SHOULDN'T BE NECESSARY
         log_level:                :debug,
         #log:                      true,
-        open_timeout:             @@config['soap']['open_timeout'],
-        read_timeout:             @@config['soap']['read_timeout'],
+        open_timeout:             @@config['open_timeout'],
+        read_timeout:             @@config['read_timeout'],
         convert_request_keys_to:  :none,
         soap_header: {
           authentication: {
-            "username" => @@config['soap']['username'],
-            "password" => @@config['soap']['password']
+            "username" => @@config['username'],
+            "password" => @@config['password']
           }
         }
       })
@@ -64,19 +66,29 @@ module PrepaidfactoryApi
     end
 
     def request(operation, request_object)
-      p request_object.to_hash
-      raise PrepaidfactoryApi::MalformedRequestObject, "Malformed request object #{request_object.class} for operation #{operation.to_s}" unless request_object.respond_to?(:to_hash)
+      raise PrepaidfactoryApi::MalformedRequestObject, "Malformed request object #{request_object.class} for operation #{operation.to_s}" unless request_object.kind_of?(PrepaidfactoryApi::Requests::Base)
 
       begin
         response = @@soap.call(operation, message: request_object.to_hash)
       rescue Savon::HTTPError => e
         raise PrepaidfactoryApi::HTTPError, "HTTP error, is the setup correct and the endpoint online?"
       rescue Savon::SOAPFault => e
-        raise PrepaidfactoryApi::SOAPFault, "SOAPFault caught, the message is [#{e.to_hash[:fault][:faultcode]}] #{e.to_hash[:fault][:faultstring]}"
+        case e.to_hash[:fault][:faultcode]
+        when "AuthenticationError"
+          raise PrepaidfactoryApi::AuthenticationError, "SOAPFault caught, the message is [#{e.to_hash[:fault][:faultcode]}] #{e.to_hash[:fault][:faultstring]}"
+        else
+          raise PrepaidfactoryApi::SOAPFault, "SOAPFault caught, the message is [#{e.to_hash[:fault][:faultcode]}] #{e.to_hash[:fault][:faultstring]}"
+        end
       rescue Savon::UnknownOperationError => e
         raise PrepaidfactoryApi::UnknownOperation, "Unknown operation '#{operation.to_s}', the message is #{e}"
-      rescue => e
-        raise PrepaidfactoryApi::Uncaught, "Uncaught error on operation '#{operation.to_s}': #{e.message}"
+      rescue ArgumentError => e
+        raise PrepaidfactoryApi::WrongSetup, "Something seems off with your config '#{operation.to_s}': #{e.message}"
+      rescue OpenSSL::X509::CertificateError => e
+        raise PrepaidfactoryApi::CertificateError, "There is a problem with the certificates: '#{operation.to_s}': #{e.message}"
+      rescue HTTPI::SSLError
+        raise PrepaidfactoryApi::SSLError, "Unable to setup a verified SSL connection: '#{operation.to_s}'"
+      #rescue => e
+      #  raise PrepaidfactoryApi::Uncaught, "Uncaught error on operation '#{operation.to_s}': #{e.message} #{e}"
       end
 
       response_to_object operation, response.body

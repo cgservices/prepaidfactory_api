@@ -1,13 +1,10 @@
 require 'spec_helper'
 
-class FakeRequest < PrepaidfactoryApi::Requests::Base
-end
-
 describe PrepaidfactoryApi::Client do
 
   describe 'confirmOrder' do
 
-    order = CLIENT.createOrder(PrepaidfactoryApi::Requests::CreateOrder.new(CONFIG['ppf']['retailer_id'], PRODUCT, TERMINAL))
+    order = CLIENT.createOrder(PrepaidfactoryApi::Requests::CreateOrder.new(CONFIG['retailer_id'], PRODUCT, TERMINAL))
 
     it 'can not confirm an order if the order_id is wrong' do
       expect {

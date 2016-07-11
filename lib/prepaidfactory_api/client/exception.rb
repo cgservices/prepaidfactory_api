@@ -2,6 +2,9 @@ module PrepaidfactoryApi
 
   WrongRequestObject        = Class.new(TypeError)
   Error                     = Class.new(RuntimeError)
+  NoCertificate             = Class.new(Error)
+  AuthenticationError       = Class.new(Error)
+  NoCertificateKey          = Class.new(Error)
   UnknownStatus             = Class.new(Error)
   MalformedRequestObject    = Class.new(Error)
   HTTPError                 = Class.new(Error)
@@ -19,6 +22,11 @@ module PrepaidfactoryApi
   CancelOrderNotFound       = Class.new(Error)
   CancelOrderNotCancelable  = Class.new(Error)
   CancelOrderNotOpen        = Class.new(Error)
+  WrongSetup                = Class.new(Error)
+  CertificateError          = Class.new(Error)
+  SSLError                  = Class.new(Error)
+
+  False = Class.new(Error)
 
   class Exception < StandardError
 
@@ -30,13 +38,13 @@ module PrepaidfactoryApi
     end
 
     def self.confirm_request(got, expected)
-      raise PrepaidfactoryApi::WrongRequestObject, "Expected #{expected.class}, got #{got.class}" unless got.kind_of?(expected)
+      raise PrepaidfactoryApi::WrongRequestObject, "Expected '#{expected.name}', got '#{got.class}'" unless got.kind_of?(expected)
     end
 
     def self.check(status)
       case status
-      when "OrderCreated", "OrderConfirmed","OrderCancelled"
-        return
+      when "Successful", "OrderCreated", "OrderConfirmed", "OrderCancelled"
+        return true
       when "Error_RetailerNotFound"
         raise PrepaidfactoryApi::RetailerNotFound, "An invalid retailer id is provided in the request"
       when "Error_NoCredit"

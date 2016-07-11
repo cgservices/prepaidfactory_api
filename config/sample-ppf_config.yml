@@ -1,19 +1,16 @@
 # SAMPLE CONFIG
 
 # Certification
-certificate:
-  pem_cert:        /full/path/to/the/cert/file
-  pem_key:         /full/path/to/the/cert/file
-  pem_key_secret:  yourReallySecureSecret
+pem_cert:        /full/path/to/the/cert/file
+pem_key:         /full/path/to/the/cert/file
+pem_key_secret:  yourReallySecureSecret
 
 # SOAP
-soap:
-  endpoint:        https://full-uri-to.endpoint
-  username:        username
-  password:        password
-  wsdl:            /full/path/to/the/wsdl/file
+endpoint:        https://full-uri-to.endpoint
+username:        username
+password:        password
+wsdl:            /full/path/to/the/wsdl/file
 
 # Prepaid Factory
-ppf:
-  retailer_id:      retailerIdProvidedByPPF
-  terminal_id:      selfProvidedTerminalId
+retailer_id:      retailerIdProvidedByPPF
+terminal_id:      selfProvidedTerminalId

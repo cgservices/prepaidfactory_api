@@ -1,14 +1,11 @@
 require 'spec_helper'
 
-class FakeRequest < PrepaidfactoryApi::Requests::Base
-end
-
 describe PrepaidfactoryApi::Client do
 
   describe 'cancelOrder' do
 
-    orderCancelable = CLIENT.createOrder(PrepaidfactoryApi::Requests::CreateOrder.new(CONFIG['ppf']['retailer_id'], PRODUCT, TERMINAL))
-    orderNoncancelable = CLIENT.createOrder(PrepaidfactoryApi::Requests::CreateOrder.new(CONFIG['ppf']['retailer_id'], PRODUCT, TERMINAL, 1, '', false))
+    orderCancelable = CLIENT.createOrder(PrepaidfactoryApi::Requests::CreateOrder.new(CONFIG['retailer_id'], PRODUCT, TERMINAL))
+    orderNoncancelable = CLIENT.createOrder(PrepaidfactoryApi::Requests::CreateOrder.new(CONFIG['retailer_id'], PRODUCT, TERMINAL, 1, '', false))
 
     it 'can not cancel an order if the order_id is wrong' do
       expect {

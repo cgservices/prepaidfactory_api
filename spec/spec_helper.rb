@@ -8,6 +8,14 @@ CONFIG = YAML.load(File.open('./config/ppf_config.yml'))
 CLIENT = PrepaidfactoryApi::Client.new(CONFIG)
 TERMINAL = 'RSPEC_TEST1'
 
+# FakeRequest class, used for testing
+class FakeRequest
+end
+
+# WrongRequest class, used for testing
+class WrongRequest < PrepaidfactoryApi::Requests::Base
+end
+
 # Should be a product in stock
 # C9910: PAYSAFE 10 EURO
 # C3638: DELIGHT10
@@ -36,4 +44,4 @@ TERMINAL = 'RSPEC_TEST1'
 # SSC40: SSC 40 euro, returns error not found on order creation
 # SSC50: SSC 50 euro, always returns out of stock
 #PRODUCT = 'C9910' # Makes cancelOrder fail
-PRODUCT = 'C3623'
+PRODUCT = 'C3638'
