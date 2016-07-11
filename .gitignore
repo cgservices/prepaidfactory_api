@@ -1,2 +1,5 @@
 /config/ppf_config.yml
+/config/ppf_key.pem
+/config/PPF-WSDL2.xml
+/config/RT-Vouchershop-2014012014-TEST.pem
 .DS_Store
