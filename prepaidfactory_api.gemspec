@@ -36,8 +36,8 @@ Gem::Specification.new do |spec|
   #spec.add_development_dependency "rspec-nc"
   #spec.add_development_dependency "guard"
   #spec.add_development_dependency "guard-rspec"
-  #spec.add_development_dependency "rubocop"
-  #spec.add_development_dependency "rubocop-checkstyle_formatter"
+  spec.add_development_dependency "rubocop"
+  spec.add_development_dependency "rubocop-checkstyle_formatter"
 
   # Debugging
   #spec.add_development_dependency "pry"
