@@ -6,18 +6,24 @@ SimpleCov.start
 require 'prepaidfactory_api'
 CONFIG = YAML.load(File.open('./config/ppf_config.yml'))
 CLIENT = PrepaidfactoryApi::Client.new(CONFIG)
-TERMINAL = 'RSPEC_TEST1'
+TERMINAL = 'RSPEC_TEST1'.freeze
 
-# FakeRequest class, used for testing
-class FakeRequest
+module PrepaidfactoryApi
+  module Requests
+    # FakeRequest class, used for testing
+    class FakeRequest
+    end
+
+    # WrongRequest class, used for testing
+    class WrongRequest < PrepaidfactoryApi::Requests::Base
+    end
+  end
 end
 
-# WrongRequest class, used for testing
-class WrongRequest < PrepaidfactoryApi::Requests::Base
-end
-
-# Should be a product in stock
-# C9910: PAYSAFE 10 EURO
+# C3900: PAYSAFE 10 EURO
+# C3901: PAYSAFE 25 EURO
+# C3902: PAYSAFE 50 EURO
+# C3903: PAYSAFE 100 EURO
 # C3638: DELIGHT10
 # C3639: DELIGHT20
 # C3636: VECTONE 10 EURO
@@ -43,5 +49,7 @@ end
 # SSC30: SSC 30 euro, returns error not found on cancelation or confirmation
 # SSC40: SSC 40 euro, returns error not found on order creation
 # SSC50: SSC 50 euro, always returns out of stock
-#PRODUCT = 'C9910' # Makes cancelOrder fail
-PRODUCT = 'C3638'
+PRODUCT = 'C3638'.freeze
+PRODUCT_WITH_LIMIT = 'C3901'.freeze
+PRODUCT_NOT_FOUND = 'SSC40'.freeze
+PRODUCT_OUT_OF_STOCK = 'SSC50'.freeze

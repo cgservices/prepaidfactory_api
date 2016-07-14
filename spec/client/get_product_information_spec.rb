@@ -1,27 +1,30 @@
 require 'spec_helper'
 
 describe PrepaidfactoryApi::Client do
-
-  describe 'GetProductInformation' do
-
+  describe 'get_product_information' do
     it 'can retrieve products' do
-      response = CLIENT.getProductInformation(PrepaidfactoryApi::Requests::GetProductInformation.new(CONFIG['retailer_id']))
+      response = CLIENT.get_product_information(PrepaidfactoryApi::Requests::GetProductInformation.new(CONFIG['retailer_id']))
       expect(response).to be_an_instance_of(PrepaidfactoryApi::Responses::GetProductInformation)
       expect(response.entities.length).to be >= 1
+
+      expect {
+        response = CLIENT.get_product_information(PrepaidfactoryApi::Requests::GetProductInformation.new(CONFIG['retailer_id']))
+        response.each { |product|
+          # puts "#{product.product_id.to_s.ljust(5)}: #{product.description}"
+        }
+      }.to_not raise_error
     end
 
     it 'can handle a wrong retailer_id' do
       expect {
-        response = CLIENT.getProductInformation(PrepaidfactoryApi::Requests::GetProductInformation.new('PPF-RETAILER-TEST-ID'))
+        response = CLIENT.get_product_information(PrepaidfactoryApi::Requests::GetProductInformation.new('PPF-RETAILER-TEST-ID'))
       }.to raise_error(PrepaidfactoryApi::RetailerNotFound)
     end
 
     it 'can handle a wrong request object' do
       expect {
-        CLIENT.getProductInformation(PrepaidfactoryApi::Requests::ConfirmOrder.new(0))
-      }.to raise_error(PrepaidfactoryApi::WrongRequestObject)
+        CLIENT.get_product_information(PrepaidfactoryApi::Requests::ConfirmOrder.new(0))
+      }.to raise_error(PrepaidfactoryApi::MalformedRequest)
     end
-
   end
-
 end
