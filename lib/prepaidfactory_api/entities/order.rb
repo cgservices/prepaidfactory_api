@@ -1,8 +1,7 @@
 module PrepaidfactoryApi
-
   module Entities
+    # Order entity class
     class Order < Entities::Base
-
       attr_reader :order_id, :terminal_id, :reference, :order_date, :currency, :provider_name, :product_id, :eancode, :promotion_text, :activation_instructions, :vouchers, :status
 
       def initialize(order)
@@ -19,7 +18,6 @@ module PrepaidfactoryApi
         @vouchers = order[:vouchers]
         @status = order[:status]
       end
-
     end
   end
 end

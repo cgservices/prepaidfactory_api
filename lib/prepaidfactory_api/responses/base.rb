@@ -1,17 +1,16 @@
 module PrepaidfactoryApi
-
   module Responses
+    # Base class for Responses
     class Base < PrepaidfactoryApi::Base
-      #include Enumerable
-
       attr_reader :entities
 
       def initialize(response)
-        @entities ||= Array.new
+        @entities ||= []
         parse response
       end
 
       def parse(response)
+        raise PrepaidfactoryApi::NotImplemented, 'This response object uses the default parse method but it should implement it\'s own'
       end
 
       def each(&block)
@@ -21,11 +20,6 @@ module PrepaidfactoryApi
       def first
         @entities.first
       end
-
-      def method_missing(method, *args, &block)
-        @entities.first.send(method.to_sym, *args)
-      end
-
     end
   end
 end

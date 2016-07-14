@@ -1,8 +1,7 @@
 module PrepaidfactoryApi
-
   module Entities
+    # Product entity class
     class Product < Entities::Base
-
       attr_reader :provider_name, :product_id, :description, :value, :eancode, :activation_instructions
 
       def initialize(product)
@@ -13,7 +12,6 @@ module PrepaidfactoryApi
         @eancode = product[:eancode]
         @activation_instructions = product[:activation_instructions]
       end
-
     end
   end
 end
