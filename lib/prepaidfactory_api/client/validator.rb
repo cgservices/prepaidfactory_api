@@ -4,6 +4,8 @@ module PrepaidfactoryApi
     def self.confirm_request(got, expected)
       raise PrepaidfactoryApi::MalformedRequest,
             "Request object doesn\'t match operation. Expected '#{expected.name}', got '#{got.class}'" unless got.is_a?(expected)
+      raise PrepaidfactoryApi::UnknownRequestObject,
+            'Request object is unknown and cannot be used for this request' unless got.respond_to?(:to_hash)
     end
 
     def self.validate_status(status)

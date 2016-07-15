@@ -1,6 +1,5 @@
 module PrepaidfactoryApi
   Error                     = Class.new(RuntimeError)
-  # WrongRequestObject        = Class.new(TypeError)
 
   AuthenticationError       = Class.new(Error)
   CancelOrderNotCancelable  = Class.new(Error)
@@ -13,7 +12,6 @@ module PrepaidfactoryApi
   HTTPError                 = Class.new(Error)
   InvalidRequestType        = Class.new(Error)
   MalformedRequest          = Class.new(Error)
-  MalformedRequestObject    = Class.new(Error)
   NoCredit                  = Class.new(Error)
   NoCertificate             = Class.new(Error)
   NoCertificateKey          = Class.new(Error)
@@ -26,8 +24,11 @@ module PrepaidfactoryApi
   SOAPFault                 = Class.new(Error)
   SSLError                  = Class.new(Error)
   TerminalLimitExceeded     = Class.new(Error)
+  UnableToObjectify         = Class.new(Error)
   Uncaught                  = Class.new(Error)
   UnknownOperation          = Class.new(Error)
+  UnknownRequestObject      = Class.new(Error)
+  UnknownResponseObject     = Class.new(Error)
   UnknownStatus             = Class.new(Error)
   WrongSetup                = Class.new(Error)
 end

@@ -1,13 +1,14 @@
+# Set load path
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
+# Setup code coverage
 require 'simplecov'
 SimpleCov.start
 
+# Require Prepaid Factory API
 require 'prepaidfactory_api'
-CONFIG = YAML.load(File.open('./config/ppf_config.yml'))
-CLIENT = PrepaidfactoryApi::Client.new(CONFIG)
-TERMINAL = 'RSPEC_TEST1'.freeze
 
+# Create test classes
 module PrepaidfactoryApi
   module Requests
     # FakeRequest class, used for testing
@@ -20,6 +21,9 @@ module PrepaidfactoryApi
   end
 end
 
+# Define different kinds of testproducts, the currently available
+# products are listed below.
+#
 # C3900: PAYSAFE 10 EURO
 # C3901: PAYSAFE 25 EURO
 # C3902: PAYSAFE 50 EURO
@@ -49,7 +53,12 @@ end
 # SSC30: SSC 30 euro, returns error not found on cancelation or confirmation
 # SSC40: SSC 40 euro, returns error not found on order creation
 # SSC50: SSC 50 euro, always returns out of stock
-PRODUCT = 'C3638'.freeze
-PRODUCT_WITH_LIMIT = 'C3901'.freeze
+PRODUCT = 'C3624'.freeze
+PRODUCT_WITH_LIMIT = 'C3900'.freeze
 PRODUCT_NOT_FOUND = 'SSC40'.freeze
 PRODUCT_OUT_OF_STOCK = 'SSC50'.freeze
+
+# Define config and client
+CONFIG = YAML.load(File.open('./config/ppf_config.yml'))
+CLIENT = PrepaidfactoryApi::Client.new(CONFIG)
+TERMINAL = 'RSPEC_TEST1'.freeze

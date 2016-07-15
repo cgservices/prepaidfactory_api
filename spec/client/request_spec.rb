@@ -6,7 +6,7 @@ describe PrepaidfactoryApi::Client do
       expect {
         CLIENT.request(:unknown_operation,
                        PrepaidfactoryApi::Requests::GetProductInformation.new(CONFIG['retailer_id']))
-      }.to raise_error(PrepaidfactoryApi::MalformedRequest)
+      }.to raise_error(PrepaidfactoryApi::UnknownRequestObject)
     end
 
     it 'can handle a known operation with a wrong request object' do
@@ -20,7 +20,7 @@ describe PrepaidfactoryApi::Client do
       expect {
         CLIENT.request(:fake_request,
                        PrepaidfactoryApi::Requests::FakeRequest.new)
-      }.to raise_error(PrepaidfactoryApi::MalformedRequestObject)
+      }.to raise_error(PrepaidfactoryApi::UnknownRequestObject)
     end
   end
 end

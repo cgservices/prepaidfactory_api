@@ -16,8 +16,8 @@ module PrepaidfactoryApi
     private
 
     def setup_savon
-      raise PrepaidfactoryApi::NoCertificate, "Certificate doesn't exists" unless File.exists?(@config['pem_cert'])
-      raise PrepaidfactoryApi::NoCertificateKey, "Certificate key doesn't exists" unless File.exists?(@config['pem_key'])
+      raise PrepaidfactoryApi::NoCertificate, "Certificate doesn't exists" unless File.exist?(@config['pem_cert'])
+      raise PrepaidfactoryApi::NoCertificateKey, "Certificate key doesn't exists" unless File.exist?(@config['pem_key'])
 
       @soap = Savon.client(
         endpoint:                 @config['endpoint'],
@@ -65,7 +65,12 @@ module PrepaidfactoryApi
     end
 
     def request(operation, request_object)
-      Validator.confirm_request request_object, objectify("PrepaidfactoryApi::Requests::#{camelize operation}")
+      begin
+        Validator.confirm_request request_object, objectify("PrepaidfactoryApi::Requests::#{camelize operation}")
+      rescue PrepaidfactoryApi::UnableToObjectify
+        raise PrepaidfactoryApi::UnknownRequestObject,
+              "Unable to initialize a PrepaidfactoryApi::Requests::#{camelize operation} request object"
+      end
 
       begin
         response = @soap.call(operation, message: request_object.to_hash)
@@ -74,16 +79,16 @@ module PrepaidfactoryApi
               "HTTP error, is the setup correct and the endpoint online? The message is #{e.message}"
       rescue Savon::SOAPFault => e
         case e.to_hash[:fault][:faultcode]
-        when "AuthenticationError"
+        when 'AuthenticationError'
           raise PrepaidfactoryApi::AuthenticationError,
                 "SOAPFault caught, the message is [#{e.to_hash[:fault][:faultcode]}] #{e.to_hash[:fault][:faultstring]}"
         else
           raise PrepaidfactoryApi::SOAPFault,
                 "SOAPFault caught, the message is [#{e.to_hash[:fault][:faultcode]}] #{e.to_hash[:fault][:faultstring]}"
         end
-      # rescue Savon::UnknownOperationError, NameError => e
-      #   raise PrepaidfactoryApi::UnknownOperation,
-      #         "Unknown operation '#{operation.to_s}', the message is #{e}"
+      rescue Savon::UnknownOperationError, NameError => e
+        raise PrepaidfactoryApi::UnknownOperation,
+              "Unknown operation '#{operation}', the message is #{e}"
       rescue Net::OpenTimeout, SocketError => e
         raise PrepaidfactoryApi::EndpointUnavailable,
               'A timeout occurred while connecting to the endpoint'
@@ -113,6 +118,9 @@ module PrepaidfactoryApi
     def response_to_object(operation, response)
       response_class = objectify "PrepaidfactoryApi::Responses::#{camelize operation}"
       response_class.new(response)
+    rescue PrepaidfactoryApi::UnableToObjectify
+      raise PrepaidfactoryApi::UnknownResponseObject,
+            "Unable to initialize a #{response_class} response object"
     end
 
     def camelize(object)
@@ -123,6 +131,9 @@ module PrepaidfactoryApi
       object.split('::').inject(Object) {|obj, const|
         obj.const_get const
       }
+    rescue NameError
+      raise PrepaidfactoryApi::UnableToObjectify,
+            "Unable to objectify #{object}"
     end
   end
 end

@@ -4,7 +4,7 @@ describe PrepaidfactoryApi::Client do
   describe 'create_order' do
     it 'can create a valid order with workable response' do
       expect {
-        response = CLIENT.create_order(PrepaidfactoryApi::Requests::CreateOrder.new(CONFIG['retailer_id'], PRODUCT, TERMINAL, 1))
+        response = CLIENT.create_order(PrepaidfactoryApi::Requests::CreateOrder.new(CONFIG['retailer_id'], PRODUCT, TERMINAL))
         response.each { |var, value|
           # puts "#{var.to_s.ljust(30)}: #{value}"
         }
@@ -12,15 +12,16 @@ describe PrepaidfactoryApi::Client do
     end
 
     it 'can not create order if the limit (e.g. Paysafe) has been reached per terminal' do
-      #terminal = "TEST-TER MINAL-#{rand(1..100)}"
+      i = 0
       expect {
-        for i in 0..50
-          puts "#{i}. Ordering #{PRODUCT_WITH_LIMIT}"
+        for i in 1..55
           order = CLIENT.create_order(PrepaidfactoryApi::Requests::CreateOrder.new(CONFIG['retailer_id'], PRODUCT_WITH_LIMIT, TERMINAL, 1))
           CLIENT.confirm_order(PrepaidfactoryApi::Requests::ConfirmOrder.new(order.order_id))
-          # CLIENT.cancel_order(PrepaidfactoryApi::Requests::CancelOrder.new(order.order_id))
+          print '      ' unless i > 1
+          print '.'
         end
       }.to raise_error(PrepaidfactoryApi::TerminalLimitExceeded)
+      puts '' unless i == 1
     end
 
     it 'can handle out-of-stock products' do
