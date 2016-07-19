@@ -17,6 +17,7 @@ describe PrepaidfactoryApi::Client do
         for i in 1..55
           order = CLIENT.create_order(PrepaidfactoryApi::Requests::CreateOrder.new(CONFIG['retailer_id'], PRODUCT_WITH_LIMIT, TERMINAL, 1))
           CLIENT.confirm_order(PrepaidfactoryApi::Requests::ConfirmOrder.new(order.order_id))
+          puts "      Creating limit on terminal #{TERMINAL}" unless i > 1
           print '      ' unless i > 1
           print '.'
         end
