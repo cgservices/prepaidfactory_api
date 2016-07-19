@@ -123,12 +123,12 @@ module PrepaidfactoryApi
             "Unable to initialize a #{response_class} response object"
     end
 
-    def camelize(object)
-      object.to_s.split('_').map(&:capitalize).join
+    def camelize(subject)
+      subject.to_s.split('_').map(&:capitalize).join
     end
 
-    def objectify(object)
-      object.split('::').inject(Object) {|obj, const|
+    def objectify(subject)
+      subject.split('::').inject(Object) {|obj, const|
         obj.const_get const
       }
     rescue NameError

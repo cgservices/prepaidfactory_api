@@ -2,6 +2,8 @@ module PrepaidfactoryApi
   module Responses
     # Base class for Responses
     class Base < PrepaidfactoryApi::Base
+      include Enumerable
+
       attr_reader :entities
 
       def initialize(response)
@@ -17,8 +19,8 @@ module PrepaidfactoryApi
         @entities.each(&block)
       end
 
-      def first
-        @entities.first
+      def <<(val)
+        @entities << val
       end
     end
   end
