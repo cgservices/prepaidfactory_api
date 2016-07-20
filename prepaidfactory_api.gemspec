@@ -45,6 +45,6 @@ Gem::Specification.new do |spec|
   #spec.add_development_dependency "pry-nav"
 
   #spec.add_dependency 'yaml',
-  spec.add_dependency 'savon', '~> 2.11.1'
+  spec.add_dependency 'savon', '~> 2.10.1'
   #spec.add_dependency 'veto'
 end
