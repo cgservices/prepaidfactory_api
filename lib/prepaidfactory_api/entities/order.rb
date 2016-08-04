@@ -15,7 +15,7 @@ module PrepaidfactoryApi
         @eancode = order[:eancode]
         @promotion_text = order[:promotion_text]
         @activation_instructions = order[:activation_instructions]
-        @vouchers = order[:consumer_service_vouchers].values
+        @vouchers = order[:consumer_service_vouchers].values if order[:consumer_service_vouchers].respond_to?(:values)
         @status = order[:status]
       end
     end
