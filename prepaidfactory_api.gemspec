@@ -22,9 +22,7 @@ Gem::Specification.new do |spec|
     raise "RubyGems 2.0 or newer is required to protect against public gem pushes."
   end
 
-  #spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
-  #spec.bindir        = "exe"
-  #spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
+
   spec.require_paths = ["lib"]
 
   spec.add_development_dependency "bundler", "~> 1.12"
@@ -33,18 +31,13 @@ Gem::Specification.new do |spec|
   # Testing
   spec.add_development_dependency "rspec", "~> 3.0"
   spec.add_development_dependency "simplecov"
-  #spec.add_development_dependency "rspec-nc"
-  #spec.add_development_dependency "guard"
-  #spec.add_development_dependency "guard-rspec"
+  spec.add_development_dependency "mutant-rspec"
   spec.add_development_dependency "rubocop"
   spec.add_development_dependency "rubocop-checkstyle_formatter"
 
   # Debugging
-  #spec.add_development_dependency "pry"
-  #spec.add_development_dependency "pry-remote"
-  #spec.add_development_dependency "pry-nav"
+  spec.add_development_dependency "pry"
+  spec.add_development_dependency "pry-nav"
 
-  #spec.add_dependency 'yaml',
   spec.add_dependency 'savon', '~> 2.10.1'
-  #spec.add_dependency 'veto'
 end

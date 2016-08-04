@@ -1,6 +1,9 @@
 # Set load path
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
+# Require Pry for debugging
+require 'pry'
+
 # Setup code coverage
 require 'simplecov'
 SimpleCov.start
@@ -53,7 +56,7 @@ end
 # SSC30: SSC 30 euro, returns error not found on cancelation or confirmation
 # SSC40: SSC 40 euro, returns error not found on order creation
 # SSC50: SSC 50 euro, always returns out of stock
-PRODUCT = 'C3623'.freeze
+PRODUCT = 'C3638'.freeze
 PRODUCT_WITH_LIMIT = 'C3900'.freeze
 PRODUCT_NOT_FOUND = 'SSC40'.freeze
 PRODUCT_OUT_OF_STOCK = 'SSC50'.freeze
@@ -61,4 +64,4 @@ PRODUCT_OUT_OF_STOCK = 'SSC50'.freeze
 # Define config and client
 CONFIG = YAML.load(File.open('./config/ppf_config.yml'))
 CLIENT = PrepaidfactoryApi::Client.new(CONFIG)
-TERMINAL = 'RSPEC_TEST1'.freeze
+TERMINAL = 'RSPEC_TEST2'.freeze
