@@ -8,7 +8,7 @@ describe PrepaidfactoryApi::Client do
     it 'can not cancel an order if the order_id is wrong' do
       expect {
         CLIENT.cancel_order(PrepaidfactoryApi::Requests::CancelOrder.new(0))
-      }.to raise_error(PrepaidfactoryApi::CancelOrderNotFound)
+      }.to raise_error(PrepaidfactoryApi::OperationCancelOrderNotFound)
     end
 
     it "can cancel an order [#{order_cancelable.order_id}]" do
@@ -19,19 +19,19 @@ describe PrepaidfactoryApi::Client do
     it "can handle order already canceled [#{order_cancelable.order_id}]" do
       expect{
         CLIENT.cancel_order(PrepaidfactoryApi::Requests::CancelOrder.new(order_cancelable.order_id))
-      }.to raise_error(PrepaidfactoryApi::CancelOrderNotOpen)
+      }.to raise_error(PrepaidfactoryApi::OperationCancelOrderNotOpen)
     end
 
     it "can not cancel noncancelable order [#{order_non_cancelable.order_id}]" do
       expect {
         CLIENT.cancel_order(PrepaidfactoryApi::Requests::CancelOrder.new(order_non_cancelable.order_id))
-      }.to raise_error(PrepaidfactoryApi::CancelOrderNotCancelable)
+      }.to raise_error(PrepaidfactoryApi::OperationCancelOrderNotCancelable)
     end
 
     it 'can handle wrong request object' do
       expect {
         CLIENT.cancel_order(PrepaidfactoryApi::Requests::ConfirmOrder.new(0))
-      }.to raise_error(PrepaidfactoryApi::MalformedRequest)
+      }.to raise_error(PrepaidfactoryApi::OperationMalformedRequest)
     end
   end
 end

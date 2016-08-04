@@ -7,7 +7,7 @@ describe PrepaidfactoryApi::Client do
       config['pem_cert'] = ''
       expect {
         PrepaidfactoryApi::Client.new(config)
-      }.to raise_error(PrepaidfactoryApi::NoCertificate)
+      }.to raise_error(PrepaidfactoryApi::ConnectionNoCertificate)
     end
 
     it 'can handle empty certificate key path' do
@@ -15,7 +15,7 @@ describe PrepaidfactoryApi::Client do
       config['pem_key'] = ''
       expect {
         PrepaidfactoryApi::Client.new(config)
-      }.to raise_error(PrepaidfactoryApi::NoCertificateKey)
+      }.to raise_error(PrepaidfactoryApi::ConnectionNoCertificateKey)
     end
 
     it 'can handle invalid certificates correctly' do
@@ -25,7 +25,7 @@ describe PrepaidfactoryApi::Client do
       expect do
         client = PrepaidfactoryApi::Client.new(config)
         client.get_product_information(PrepaidfactoryApi::Requests::GetProductInformation.new(config['retailer_id']))
-      end.to raise_error(PrepaidfactoryApi::CertificateError)
+      end.to raise_error(PrepaidfactoryApi::ConnectionCertificateError)
     end
 
     it 'can verify all certificates' do
@@ -43,7 +43,7 @@ describe PrepaidfactoryApi::Client do
       expect {
         client = PrepaidfactoryApi::Client.new(config)
         client.get_product_information(PrepaidfactoryApi::Requests::GetProductInformation.new(config['retailer_id']))
-      }.to raise_error(PrepaidfactoryApi::SSLError)
+      }.to raise_error(PrepaidfactoryApi::ConnectionSSLError)
     end
 
     it 'can handle wrong credentials' do
@@ -53,7 +53,7 @@ describe PrepaidfactoryApi::Client do
       expect {
         client = PrepaidfactoryApi::Client.new(config)
         client.get_product_information(PrepaidfactoryApi::Requests::GetProductInformation.new(config['retailer_id']))
-      }.to raise_error(PrepaidfactoryApi::AuthenticationError)
+      }.to raise_error(PrepaidfactoryApi::ConnectionAuthenticationError)
     end
 
     it 'can handle empty endpoint' do
@@ -62,7 +62,7 @@ describe PrepaidfactoryApi::Client do
       expect {
         client = PrepaidfactoryApi::Client.new(config)
         client.get_product_information(PrepaidfactoryApi::Requests::GetProductInformation.new(config['retailer_id']))
-      }.to raise_error(PrepaidfactoryApi::NoValidEndpointSpecified)
+      }.to raise_error(PrepaidfactoryApi::ConnectionNoValidEndpointSpecified)
     end
 
     it 'can handle an unreachable endpoint' do
@@ -71,7 +71,7 @@ describe PrepaidfactoryApi::Client do
       expect {
         client = PrepaidfactoryApi::Client.new(config)
         client.get_product_information(PrepaidfactoryApi::Requests::GetProductInformation.new(config['retailer_id']))
-      }.to raise_error(PrepaidfactoryApi::EndpointUnavailable)
+      }.to raise_error(PrepaidfactoryApi::ConnectionEndpointUnavailable)
     end
   end
 end

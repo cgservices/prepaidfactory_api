@@ -18,13 +18,13 @@ describe PrepaidfactoryApi::Client do
     it 'can handle a wrong retailer_id' do
       expect {
         response = CLIENT.get_product_information(PrepaidfactoryApi::Requests::GetProductInformation.new('PPF-RETAILER-TEST-ID'))
-      }.to raise_error(PrepaidfactoryApi::RetailerNotFound)
+      }.to raise_error(PrepaidfactoryApi::OperationRetailerNotFound)
     end
 
     it 'can handle a wrong request object' do
       expect {
         CLIENT.get_product_information(PrepaidfactoryApi::Requests::ConfirmOrder.new(0))
-      }.to raise_error(PrepaidfactoryApi::MalformedRequest)
+      }.to raise_error(PrepaidfactoryApi::OperationMalformedRequest)
     end
   end
 end

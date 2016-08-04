@@ -7,7 +7,7 @@ describe PrepaidfactoryApi::Client do
     it 'can not confirm an order if the order_id is wrong' do
       expect {
         CLIENT.confirm_order(PrepaidfactoryApi::Requests::ConfirmOrder.new(0))
-      }.to raise_error(PrepaidfactoryApi::OrderNotFound)
+      }.to raise_error(PrepaidfactoryApi::OperationOrderNotFound)
     end
 
     it "can confirm an order [#{order.order_id}]" do
@@ -18,13 +18,13 @@ describe PrepaidfactoryApi::Client do
     it 'can handle an already confirmed order' do
       expect {
         CLIENT.confirm_order(PrepaidfactoryApi::Requests::ConfirmOrder.new(order.order_id))
-      }.to raise_error(PrepaidfactoryApi::ConfirmNotAllowed)
+      }.to raise_error(PrepaidfactoryApi::OperationConfirmNotAllowed)
     end
 
     it 'can handle an wrong request object' do
       expect {
         CLIENT.confirm_order(PrepaidfactoryApi::Requests::GetProductInformation.new(0))
-      }.to raise_error(PrepaidfactoryApi::MalformedRequest)
+      }.to raise_error(PrepaidfactoryApi::OperationMalformedRequest)
     end
   end
 end
