@@ -1,4 +1,4 @@
-require 'OpenSSL'
+require 'openssl'
 require 'savon'
 
 module PrepaidfactoryApi
