@@ -10,7 +10,7 @@ Gem::Specification.new do |spec|
   spec.email         = ["sander.van.rossum@cg.nl"]
 
   spec.summary       = "Ruby API for products from Prepaid Factory"
-  spec.description   = "Ruby API fro producst from Prepaid Factory"
+  spec.description   = "Ruby API for producst from Prepaid Factory"
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -21,23 +21,4 @@ Gem::Specification.new do |spec|
   else
     raise "RubyGems 2.0 or newer is required to protect against public gem pushes."
   end
-
-
-  spec.require_paths = ["lib"]
-
-  spec.add_development_dependency "bundler", "~> 1.12"
-  spec.add_development_dependency "rake", "~> 10.0"
-
-  # Testing
-  spec.add_development_dependency "rspec", "~> 3.0"
-  spec.add_development_dependency "simplecov"
-  spec.add_development_dependency "mutant-rspec"
-  spec.add_development_dependency "rubocop"
-  spec.add_development_dependency "rubocop-checkstyle_formatter"
-
-  # Debugging
-  spec.add_development_dependency "pry"
-  spec.add_development_dependency "pry-nav"
-
-  spec.add_dependency 'savon', '~> 2.10.1'
 end
