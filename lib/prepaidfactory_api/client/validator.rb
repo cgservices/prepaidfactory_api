@@ -3,7 +3,7 @@ module PrepaidfactoryApi
   class Validator
     def self.confirm_request(got, expected)
       raise PrepaidfactoryApi::OperationMalformedRequest,
-            "Request object doesn\'t match operation. Expected '#{expected.name}', got '#{got.class}'" unless got.is_a?(expected)
+            "Request object doesn't match operation. Expected '#{expected.name}', got '#{got.class}'" unless got.is_a?(expected)
       raise PrepaidfactoryApi::OperationUnknownRequestObject,
             'Request object is unknown and cannot be used for this request' unless got.respond_to?(:to_hash)
     end
@@ -17,7 +17,7 @@ module PrepaidfactoryApi
               'An invalid retailer id is provided in the request'
       when 'TerminalLimitExceeded'
         raise PrepaidfactoryApi::OperationTerminalLimitExceeded,
-              'Limit per TerminalID exceeded for paysafe products'
+              'Limit per TerminalID exceeded'
       when 'Error_ProductNotFound'
         raise PrepaidfactoryApi::OperationProductNotFound,
               'The product is unknown or the product won’t be sold anymore'
