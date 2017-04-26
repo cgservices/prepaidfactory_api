@@ -10,7 +10,7 @@ describe PrepaidfactoryApi::Client do
       expect {
         response = CLIENT.get_product_information(PrepaidfactoryApi::Requests::GetProductInformation.new(CONFIG['retailer_id']))
         response.each { |product|
-          # puts "#{product.product_id.to_s.ljust(5)}: #{product.description}"
+          puts "#{product.product_id.to_s.ljust(5)}: #{product.description}"
         }
       }.to_not raise_error
     end

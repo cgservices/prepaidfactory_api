@@ -1,6 +1,16 @@
 require 'openssl'
 require 'savon'
 
+# class Observer
+#   def notify(operation_name, builder, globals, locals)
+#     puts ''
+#     puts ''
+#     puts builder
+#     return nil
+#   end
+# end
+# Savon.observers << Observer.new
+
 module PrepaidfactoryApi
   # This is the Prepaid Factory API client
   class Client
@@ -74,6 +84,7 @@ module PrepaidfactoryApi
 
       begin
         response = @soap.call(operation, message: request_object.to_hash)
+        # p response.http.body
       rescue Savon::HTTPError => e
         raise PrepaidfactoryApi::ConnectionHTTPError,
               "HTTP error, is the setup correct and the endpoint online? The message is #{e.message}"
