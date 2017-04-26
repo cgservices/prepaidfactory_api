@@ -34,7 +34,7 @@ end
 
 # Define different kinds of testproducts, the currently available
 # products are listed below.
-PRODUCT = 'H0086'.freeze
+PRODUCT = 'H0201'.freeze
 # PRODUCT_WITH_LIMIT = 'C3900'.freeze
 # PRODUCT_NOT_FOUND = 'SSC40'.freeze
 # PRODUCT_OUT_OF_STOCK = 'SSC50'.freeze
