@@ -17,7 +17,7 @@ SimpleCov.start
 
 # Require Prepaid Factory API
 require 'prepaidfactory_api'
-CONFIG = YAML.load(File.open('./config/ppf_config.yml'))
+CONFIG = YAML.load(File.open('./config/development/ppf_config.yml'))
 CLIENT = PrepaidfactoryApi::Client.new(CONFIG)
 TERMINAL = '93880010'.freeze
 

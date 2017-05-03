@@ -1,6 +1,6 @@
-/config/ppf_config.yml
-/config/ppf_key.pem
-/config/PPF-WSDL2.xml
-/config/RT-Vouchershop-2014012014-TEST.pem
+/config/**.yml
+/config/**.pem
+/config/**.xml
+!/config/sample-ppf_config.yml
 .DS_Store
 /coverage/
