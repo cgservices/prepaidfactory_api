@@ -1,6 +1,4 @@
-/config/**.yml
-/config/**.pem
-/config/**.xml
+/config/**
 !/config/sample-ppf_config.yml
 .DS_Store
 /coverage/
