@@ -33,6 +33,10 @@ RSpec.configure do |config|
       .with(body: xml_fixture('request/create_order/wrong_retailer_id'))
       .to_return(status: 200, body: xml_fixture('response/create_order/wrong_retailer_id'))
 
+    # CreateOrder generic error
+    stub_request(:post, CONFIG['endpoint'])
+      .with(body: xml_fixture('request/create_order/generic_error'))
+      .to_return(status: 200, body: xml_fixture('response/create_order/generic_error'))
 
     ############################################################
     # cancel_order_spec.rb

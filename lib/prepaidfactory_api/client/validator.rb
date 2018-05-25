@@ -45,6 +45,9 @@ module PrepaidfactoryApi
       when 'Error_eVoucherError'
         raise PrepaidfactoryApi::OperationGenericException,
               'Generic exception occurred, please contact PPF and provide the product ID when you receive this response. The product doesn\'t exist with the provider, most likely'
+      when 'Error_GiftCardError'
+        raise PrepaidfactoryApi::OperationOutOfStock,
+              'Generic exception occurred, please contact PPF and provide the product ID when you receive this response. This really could mean anything, error at supplier, product out-of-stock, limit reached...'
       else
         raise PrepaidfactoryApi::OperationUnknownStatus,
               "An unknown status has been returned: #{status}"

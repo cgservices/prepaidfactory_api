@@ -22,5 +22,11 @@ describe PrepaidfactoryApi::Client do
                        PrepaidfactoryApi::Requests::FakeRequest.new)
       }.to raise_error(PrepaidfactoryApi::OperationUnknownRequestObject)
     end
+
+    it 'can handle generic error as out-of-stock error' do
+      expect {
+        CLIENT.create_order(PrepaidfactoryApi::Requests::GenericErrorRequest.new(CONFIG['retailer_id'], 'C3900', '93880010'))
+      }.to raise_error(PrepaidfactoryApi::OperationOutOfStock)
+    end
   end
 end

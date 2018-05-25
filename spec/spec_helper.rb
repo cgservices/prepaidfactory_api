@@ -24,6 +24,7 @@ TERMINAL = '93880010'.freeze
 # Require PrepaidFactory stubs/mocks
 require 'support/prepaidfactory_api/requests/fake_request'
 require 'support/prepaidfactory_api/requests/wrong_request'
+require 'support/prepaidfactory_api/requests/generic_error_request'
 
 # Configure RSpec
 RSpec.configure do |config|
