@@ -16,7 +16,7 @@ module PrepaidfactoryApi
   class Client
     def initialize(config)
       config['open_timeout'] ||= 10
-      config['read_timeout'] ||= 60
+      config['read_timeout'] ||= 65
       config['ssl_verify_mode'] ||= :peer
       config['ssl_ca_cert_file'] ||= config['pem_cert']
       @config = config
