@@ -15,7 +15,7 @@ module PrepaidfactoryApi
   # This is the Prepaid Factory API client
   class Client
     def initialize(config)
-      config['open_timeout'] ||= 10
+      config['open_timeout'] ||= 5
       config['read_timeout'] ||= 65
       config['ssl_verify_mode'] ||= :peer
       config['ssl_ca_cert_file'] ||= config['pem_cert']
