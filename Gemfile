@@ -4,7 +4,7 @@ gem 'savon', '~> 2.10.1'
 
 group :development, :test do
   gem "bundler", "~> 1.12"
-  gem "rake", "~> 10.0"
+  gem "rake", "~> 12.3"
 
   # Testing
   gem "rspec", "~> 3.5"
