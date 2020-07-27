@@ -19,7 +19,7 @@ GEM
     httpi (2.4.2)
       rack
       socksify
-    json (2.0.3)
+    json (2.3.1)
     macaddr (1.7.1)
       systemu (~> 2.6.2)
     method_source (0.8.2)
